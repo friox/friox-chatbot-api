@@ -1,10 +1,8 @@
 # Stage 1: Base
 FROM node:20-alpine AS base
-
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN npm install -g pnpm@10.20.0
-
 WORKDIR /app
 
 # Stage 2: Build Dependencies
@@ -20,10 +18,8 @@ COPY . .
 RUN pnpm build
 
 # Stage 4: Prod Dependencies
-FROM base AS prod-deps
-RUN apk add --no-cache python3 make g++
-COPY package.json pnpm-lock.yaml ./
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-lockfile
+FROM build-deps AS prod-deps
+RUN pnpm prune --prod
 
 # Stage 5: Runner
 FROM node:20-alpine AS runner
