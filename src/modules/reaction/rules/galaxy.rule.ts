@@ -9,7 +9,7 @@ export class GalaxyRule implements ReactionRule {
   priority = 1;
 
   match(ctx: ReactionContext): boolean {
-    return ctx.message.includes('갤럭시');
+    return ctx.message.includes('갤럭시') && false;
   }
   
   execute(ctx: ReactionContext): ChatResponseDto {

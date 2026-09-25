@@ -11,7 +11,7 @@ import { ErrorCode } from "src/common/errors/error-code";
 @Injectable()
 export class GeminiService {
   private readonly logger = new Logger(GeminiService.name);
-  private readonly GEMINI_MODEL = 'gemini-3.1-flash-lite'; // TODO: 모델 동적 교체 구현
+  private readonly GEMINI_MODEL = 'gemini-3.5-flash-lite'; // TODO: 모델 동적 교체 구현
 
   constructor(
     @Inject(TOKENS.DATABASE_CONNECTION) private readonly db: BetterSQLite3Database<typeof schema>,
@@ -27,6 +27,7 @@ export class GeminiService {
           { type: "text", text: `[platform:${ctx.platform},name:${ctx.senderName ?? 'unknown'}]:${ctx.prompt}` },
           ...ctx.mediaUrls.map(url => ({ type: "image" as const, uri: url, mime_type: 'image/jpeg' }))
         ],
+        tools: [{ type: "google_search" }],
         previous_interaction_id: ctx.previousInteractionId,
       });
       await this.db
