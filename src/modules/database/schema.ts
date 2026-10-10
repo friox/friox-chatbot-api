@@ -23,6 +23,7 @@ export const sessionConfigs = sqliteTable('session_configs', {
   aiEnabled: integer('ai_enabled', { mode: 'boolean' }).default(true).notNull(),
   aiTriggerWord: text('ai_trigger_word').default('잼민').notNull(),
   previousInteractionId: text('previous_interaction_id'),
+  systemPrompt: text('system_prompt'),
 });
 
 export type ChatMessage = typeof chatMessages.$inferSelect;

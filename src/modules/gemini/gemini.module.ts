@@ -1,9 +1,10 @@
-import { DatabaseModule } from "@/modules/database/database.module";
-import { GoogleGenAI } from "@google/genai";
-import { Module } from "@nestjs/common";
-import { ConfigService } from "@nestjs/config";
-import { TOKENS } from "src/common/constants/di-tokens";
-import { GeminiService } from "./gemini.service";
+import { DatabaseModule } from '@/modules/database/database.module';
+import { GoogleGenAI } from '@google/genai';
+import { Module } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { TOKENS } from 'src/common/constants/di-tokens';
+import { GeminiService } from './gemini.service';
+import { PromptService } from './prompt.service';
 
 @Module({
   imports: [DatabaseModule],
@@ -16,8 +17,9 @@ import { GeminiService } from "./gemini.service";
       },
       inject: [ConfigService],
     },
+    PromptService,
     GeminiService,
   ],
-  exports: [GeminiService],
+  exports: [GeminiService, PromptService],
 })
 export class GeminiModule {}
