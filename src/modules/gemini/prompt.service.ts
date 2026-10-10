@@ -62,11 +62,16 @@ export class PromptService {
    */
   buildSystemInstruction(sessionPrompt?: string): string {
     const globalPrompt = this.getGlobalPrompt();
+    const trimmedSession = sessionPrompt?.trim();
+    const formattedSession =
+      trimmedSession && trimmedSession.length > 0
+        ? `# Session Custom Instructions\n${trimmedSession}`
+        : undefined;
 
     const sections = [
       CORE_SECURITY_AND_PROTOCOL_PROMPT,
       globalPrompt?.trim(),
-      sessionPrompt?.trim(),
+      formattedSession,
     ].filter(
       (section): section is string =>
         typeof section === 'string' && section.length > 0,

@@ -55,7 +55,7 @@ describe('PromptService', () => {
       const instruction = promptService.buildSystemInstruction(sessionContent);
 
       expect(instruction).toBe(
-        `${CORE_SECURITY_AND_PROTOCOL_PROMPT}\n\n---\n\n${globalContent}\n\n---\n\n${sessionContent}`,
+        `${CORE_SECURITY_AND_PROTOCOL_PROMPT}\n\n---\n\n${globalContent}\n\n---\n\n# Session Custom Instructions\n${sessionContent}`,
       );
     });
 
@@ -66,7 +66,7 @@ describe('PromptService', () => {
       const instruction = promptService.buildSystemInstruction(sessionContent);
 
       expect(instruction).toBe(
-        `${CORE_SECURITY_AND_PROTOCOL_PROMPT}\n\n---\n\n${sessionContent}`,
+        `${CORE_SECURITY_AND_PROTOCOL_PROMPT}\n\n---\n\n# Session Custom Instructions\n${sessionContent}`,
       );
     });
 
