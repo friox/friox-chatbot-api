@@ -13,6 +13,7 @@ export interface GeminiContext {
   readonly prompt: string;
   readonly mediaUrls: string[];
   readonly previousInteractionId?: string;
+  readonly sessionPrompt?: string;
 }
 
 export interface ReactionContext {
